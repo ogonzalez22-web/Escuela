@@ -52,7 +52,7 @@ namespace Escuela
                 using (OleDbConnection conexion = ConexionBD.ObtenerConexion())
                 {
                     conexion.Open();
-                    string consulta = "INSERT INTO alumnos" + "(Matricula, Grupo, Especialidad, Nombre, Semestre)" +
+                    string consulta = "INSERT INTO alumnos" + "(Matricula, Nombre, Semestre, Grupo, Especialidad)" +
                         "VALUES (?,?,?,?,?)";
                     using (OleDbCommand comando= new OleDbCommand(consulta, conexion))
                     {
@@ -64,6 +64,8 @@ namespace Escuela
                         comando.ExecuteNonQuery();
                     }
                 }
+                LimpiarCampos();
+                CargarAlumnos();
             }
             catch (Exception ex)
             {
@@ -76,9 +78,18 @@ namespace Escuela
 
         private void LimpiarBTN_Click(object sender, EventArgs e)
         {
-
+            LimpiarCampos();
         }
 
+        private void LimpiarCampos()
+        {
+            txtMatricula.Clear();
+            txtNombre.Clear();
+            nudSemestre.Value = 1;
+            txtGrupo.Clear();
+            EspecialidadTXT.Clear();
+            txtMatricula.Focus();
+        }
         private void MostrarBTN_Click(object sender, EventArgs e)
         {
 
